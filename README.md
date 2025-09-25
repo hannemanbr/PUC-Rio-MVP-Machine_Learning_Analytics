@@ -27,13 +27,13 @@ Todo o desenvolvimento, análise de dados e treinamento do modelo preditivo fora
 
 ---
 
-### 📊 Base de Dados
+### 📊 Bases de Dados e Modelos Salvos
 
-Os arquivos foram extraídos do Portal Dados Abertos do Governo Federal e disponibilizados pelo **CENIPA** (Centro de Investigação e Prevenção de Acidentes Aeronáuticos).
+Os arquivos de dados foram extraídos do Portal Dados Abertos do Governo Federal e disponibilizados pelo **CENIPA** (Centro de Investigação e Prevenção de Acidentes Aeronáuticos).
 
 * **Link da Fonte:** [Ocorrências Aeronáuticas da Aviação Civil Brasileira](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira)
 
-#### Arquivos Incluídos
+#### Arquivos de Dados Incluídos
 
 | Arquivo | Descrição | Registros |
 | :--- | :--- | :--- |
@@ -42,12 +42,22 @@ Os arquivos foram extraídos do Portal Dados Abertos do Governo Federal e dispon
 | `ocorrencia_tipo.csv` | Informações sobre a categoria e taxonomia de cada ocorrência. | Mais de 13 mil |
 | `fator_contribuinte.csv` | Fatores humanos, técnicos e operacionais que contribuíram para a ocorrência. | Mais de 8 mil |
 | `recomendacao.csv` | Registros das recomendações feitas após as conclusões das investigações. | Mais de 3 mil |
-| `modelo_dados.webp` | Diagrama visual do relacionamento entre todos os datasets. | --- |
+| `modelo_dados.webp` | Diagrama visual do relacionamento entre todos os datasets. | N/A |
+
+#### Modelos de Classificação Salvos
+
+| Nome do Arquivo | Modelo | Balanceamento (SMOTE) | Observação |
+| :--- | :--- | :--- | :--- |
+| `thomas_modelo_lightGBM.joblib` | **LightGBM** | **Pré-SMOTE** | **MODELO FINAL ESCOLHIDO** |
+| `thomas_modelo_random_forest.joblib` | Random Forest | Pré-SMOTE | Usado para comparação. |
+| `thomas_modelo_lightGBM_smote.joblib` | LightGBM | Pós-SMOTE | Usado para comparação. |
+| `thomas_modelo_xgb.joblib` | XGBoost | Pré-SMOTE | Usado para comparação. |
+| `thomas_modelo_xgb_smote.joblib` | XGBoost | Pós-SMOTE | Usado para comparação. |
 
 ---
 
 ### ⚙️ Conclusão da Modelagem
 
-O modelo final escolhido foi o **LightGBM (Pré-SMOTE)**, devido à sua capacidade superior de discriminação.
+O modelo final escolhido foi o **LightGBM (treinado com dados originais, Pré-SMOTE)**, devido à sua capacidade superior de discriminação.
 
 O LightGBM demonstrou o melhor equilíbrio entre segurança (baixo erro crítico na previsão de Acidentes) e precisão, sendo o único modelo capaz de classificar corretamente cenários de risco intermediário como **Incidente Grave** nos testes práticos. As *features* de maior peso no modelo foram o **PMD** (Peso Máximo de Decolagem), o **Ano de Fabricação** e a necessidade de **Recomendações** após o evento.
